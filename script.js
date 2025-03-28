@@ -119,12 +119,42 @@ function removeItemCart(name) {
 }
 
 addressInput.addEventListener("input", function (event) {
-  let inputValeu = event.target.valeu;
+  let inputValue = event.target.valeu;
+
+  if (inputValue != "") {
+    addressInput.classList.remove("border-red-500");
+    addressWarn.classList.add("hidden");
+  }
 });
 
 checkoutBtn.addEventListener("click", function () {
+  // const isOpen = chackRestaurantOpen();
+  // if (!isOpen) {
+  //   alert("Restaurante está fechado no momento");
+  //   return;
+  // }
+
   if (cart.length === 0) return;
   if (addressInput.valeu === "") {
     addressWarn.classList.remove("hidden");
+    addressInput.classList.add("border-red-500");
+    return;
   }
 });
+
+function chackRestaurantOpen() {
+  const data = new Date();
+  const hora = data.getHours();
+  return hora >= 18 && hora > 22;
+}
+
+const spanItem = document.getElementById("data-span");
+const isOpen = chackRestaurantOpen();
+
+if (isOpen) {
+  spanItem.classList.remove("bg-red-500");
+  spanItem.classList.add("bg-green-600");
+} else {
+  spanItem.classList.add("bg-red-500");
+  spanItem.classList.remove("bg-green-600");
+}
